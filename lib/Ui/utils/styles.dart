@@ -4,6 +4,8 @@ import 'package:islamy_app/Ui/utils/app_colors.dart';
 abstract class AppStyles {
   static TextStyle appBarText =
      const TextStyle(fontSize: 30, fontWeight: FontWeight.bold,color:AppColors.accent );
+  static TextStyle splash =
+     const TextStyle(fontSize: 17, fontWeight: FontWeight.bold,color:AppColors.primary );
 
 
        static TextStyle semiBoldAccent =

@@ -16,7 +16,7 @@ routes: {
   Splash.routeName:(context)=>const Splash(),
   HomePage.routeName:(context)=>const HomePage(),
 },
-initialRoute: Splash.routeName,
+initialRoute:Splash.routeName,
     );
   }
 }
