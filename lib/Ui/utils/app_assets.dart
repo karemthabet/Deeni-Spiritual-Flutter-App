@@ -6,4 +6,5 @@ abstract class AppAssets {
   static const String radio = 'assets/images/icon_radio.png';
   static const String sebha = 'assets/images/icon_sebha.png';
   static const String quran = 'assets/images/icon_quran.png';
+  static const String qur2anScreenlogo = 'assets/images/qur2an_screen_logo.png';
 }
