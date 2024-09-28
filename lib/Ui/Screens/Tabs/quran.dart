@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:islamy_app/Ui/Models/SuraDetails.dart';
+import 'package:islamy_app/Ui/Screens/sura_details/sura_datails.dart';
 import 'package:islamy_app/Ui/utils/app_assets.dart';
 import 'package:islamy_app/Ui/utils/app_colors.dart';
 import 'package:islamy_app/Ui/utils/app_constants.dart';
@@ -21,8 +23,7 @@ class Quran extends StatelessWidget {
   }
 
   Widget buildDevider() {
-    // ignore: prefer_const_constructors
-    return Divider(
+    return const Divider(
       height: 2,
       thickness: 2,
       color: AppColors.primary,
@@ -72,31 +73,42 @@ class Quran extends StatelessWidget {
     );
   }
 
-  buildSures() {
+  Widget buildSures() {
     return Expanded(
         child: ListView.separated(
-          itemCount: AppConstants.suraNames.length,
-          separatorBuilder: (context, index) {
-      return const Divider(
-        color: AppColors.primary,
-      );
-    }, itemBuilder: (condtext, index) {
-      return Row(
-        children: [
-          Expanded(
-              child: Text(
-            textAlign: TextAlign.center,
-            AppConstants.versesNumber[index].toString(),
-            style: AppStyles.regulerAccent,
-          )),
-          Expanded(
-              child: Text(
-            textAlign: TextAlign.center,
-            AppConstants.suraNames[index],
-            style: AppStyles.regulerAccent,
-          ))
-        ],
-      );
-    }));
+            itemCount: AppConstants.suraNames.length,
+            separatorBuilder: (context, index) {
+              return const Divider(
+                color: AppColors.primary,
+              );
+            },
+            itemBuilder: (context, index) {  
+              return InkWell(
+                onTap: () {
+                  Navigator.pushNamed(context, SuraDetails.routeName, 
+                      arguments: SuraDetailsModel(
+                        numSura: index,
+                        filename: "${index + 1}.txt",
+                        suraName: AppConstants.suraNames[index],
+                      ));
+                },
+                child: Row(
+                  children: [
+                    Expanded(
+                        child: Text(
+                      textAlign: TextAlign.center,
+                      AppConstants.versesNumber[index].toString(),
+                      style: AppStyles.regulerAccent,
+                    )),
+                    Expanded(
+                        child: Text(
+                      textAlign: TextAlign.center,
+                      AppConstants.suraNames[index],
+                      style: AppStyles.regulerAccent,
+                    )),
+                  ],
+                ),
+              );
+            }));
   }
 }
