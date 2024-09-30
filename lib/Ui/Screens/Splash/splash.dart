@@ -14,7 +14,7 @@ class Splash extends StatelessWidget {
     });
 
     return Scaffold(
-        backgroundColor: const Color(0xfff5f4f4),
+       // backgroundColor: const Color(0xfff5f4f4),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

@@ -38,8 +38,6 @@ class _SuraDetailsState extends State<SuraDetails> {
         ModalRoute.of(context)!.settings.arguments as SuraDetailsModel;
     readFileContent(suraDetailsContent.filename);
     return Container(
-      height: double.infinity,
-      width: double.infinity,
       decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage(AppAssets.defultBackground),
@@ -112,12 +110,15 @@ class _SuraDetailsState extends State<SuraDetails> {
                 child: ListView(children: [
                   suraContent.isEmpty
                       ? const Center(child: CircularProgressIndicator())
-                      : Text(
-                          textDirection: TextDirection.rtl,
-                          textAlign: TextAlign.right,
-                          formatSuraContent(suraContent),
-                          style: AppStyles.regulerAccent,
-                        ),
+                      : Padding(
+                        padding: const EdgeInsets.all(15),
+                        child: Text(
+                            textDirection: TextDirection.rtl,
+                            textAlign: TextAlign.right,
+                            formatSuraContent(suraContent),
+                            style: AppStyles.regulerAccent,
+                          ),
+                      ),
                 ]),
               ),
             ],

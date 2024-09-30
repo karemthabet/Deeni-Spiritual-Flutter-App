@@ -4,8 +4,11 @@ abstract class AppAssets {
   static const String hadeth =
       'assets/images/icon_hadeth.png';
   static const String radio = 'assets/images/icon_radio.png';
-  static const String sebha = 'assets/images/icon_sebha.png';
+  static const String sebha = 'assets/images/body_sebha_logo.png';
+  static const String sebhaicon = 'assets/images/head_sebha_logo.png';
   static const String quran = 'assets/images/icon_quran.png';
   static const String qur2anScreenlogo = 'assets/images/qur2an_screen_logo.png';
-  static const String ahmedNafies = 'assets/images/maxresdefault (1).jpg';
+  static const String sebhaTab = 'assets/images/icon_sebha.png';
+  static const String radioImage = 'assets/images/radio_image.png';
+  static const String hadethLogo = 'assets/images/hadeth_logo.png';
 }

@@ -53,7 +53,7 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem(
               icon: ImageIcon(AssetImage(AppAssets.quran)), label: "القرآن"),
           BottomNavigationBarItem(
-              icon: ImageIcon(AssetImage(AppAssets.sebha)), label: "التسبيح"),
+              icon: ImageIcon(AssetImage(AppAssets.sebhaTab)), label: "التسبيح"),
           BottomNavigationBarItem(
               icon: ImageIcon(AssetImage(AppAssets.radio)), label: "الراديو"),
           BottomNavigationBarItem(
