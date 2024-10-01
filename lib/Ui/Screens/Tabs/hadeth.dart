@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:islamy_app/Ui/Screens/hadeth_datails.dart/hadeth_details.dart';
 import 'package:islamy_app/Ui/utils/app_assets.dart';
-import 'package:islamy_app/Ui/utils/app_colors.dart';
-import 'package:islamy_app/Ui/utils/styles.dart';
 
 class Hadeth extends StatelessWidget {
   const Hadeth({super.key});
@@ -14,16 +12,12 @@ class Hadeth extends StatelessWidget {
       children: [
         Image.asset(AppAssets.hadethLogo),
         const Divider(
-          color: AppColors.primary,
           thickness: 3,
         ),
-        Text(
-          'الأحاديث',
-          style: AppStyles.regulerAccent,
-        ),
+        Text('الأحاديث', style: Theme.of(context).textTheme.titleMedium),
         const Divider(
-          color: AppColors.primary,
           thickness: 3,
+
         ),
         Expanded(
             child: ListView.builder(
@@ -35,7 +29,7 @@ class Hadeth extends StatelessWidget {
                           arguments: HadithModel(index: "h${index + 1}.txt"));
                     },
                     child: Text(
-                        style: AppStyles.regulerAccent,
+                        style: Theme.of(context).textTheme.titleMedium,
                         textAlign: TextAlign.center,
                         'الحديث رقم ${index + 1}'),
                   );

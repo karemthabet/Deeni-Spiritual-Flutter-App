@@ -3,6 +3,7 @@ import 'package:islamy_app/Ui/Screens/Home/homepage.dart';
 import 'package:islamy_app/Ui/Screens/Splash/splash.dart';
 import 'package:islamy_app/Ui/Screens/hadeth_datails.dart/hadeth_details.dart';
 import 'package:islamy_app/Ui/Screens/sura_details/sura_datails.dart';
+import 'package:islamy_app/Ui/utils/app_theme.dart';
 
 void main(){
   runApp(const IslamyApp());
@@ -13,6 +14,9 @@ class IslamyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  MaterialApp(
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
+      themeMode:ThemeMode.system ,
 debugShowCheckedModeBanner: false,
 routes: {
   Splash.routeName:(context)=>const Splash(),

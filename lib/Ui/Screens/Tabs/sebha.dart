@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:islamy_app/Ui/utils/app_colors.dart';
 import 'package:islamy_app/Ui/utils/app_constants.dart';
-import 'package:islamy_app/Ui/utils/styles.dart';
 import '../../utils/app_assets.dart';
-import '../../utils/app_colors.dart';
+import 'dart:math';   
 
 class Sebha extends StatefulWidget {
   const Sebha({super.key});
@@ -11,13 +11,50 @@ class Sebha extends StatefulWidget {
   State<Sebha> createState() => SebhaState();
 }
 
-class SebhaState extends State<Sebha> {
+class SebhaState extends State<Sebha> with SingleTickerProviderStateMixin {
   int numberOfTasbeh = 0;
   int currentTasbehIndex = 0;
+  late AnimationController _animationController;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      duration: const Duration(milliseconds: 500), 
+      vsync: this,
+    );
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  void _incrementTasbeh() {
+    setState(() {
+      if (numberOfTasbeh < 33) {
+        numberOfTasbeh++;
+      } else {
+        numberOfTasbeh = 0;
+        currentTasbehIndex =
+            (currentTasbehIndex + 1) % AppConstants.tasbehList.length;
+      }
+      _animationController.forward(from: 0);  
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     String text = AppConstants.tasbehList[currentTasbehIndex];
+    double sebhaRadius = 100; 
+
+    double anglePerStep = 2 * pi / 33;
+
+    double currentAngle = anglePerStep * numberOfTasbeh;
+
+    double dx = sebhaRadius * cos(currentAngle);
+    double dy = sebhaRadius * sin(currentAngle);
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -25,13 +62,33 @@ class SebhaState extends State<Sebha> {
         const Spacer(),
         Stack(
           clipBehavior: Clip.none,
-          alignment: Alignment.topCenter,
+          alignment: Alignment.center,
           children: [
-            Image.asset(AppAssets.sebha),
-            Positioned(
-              top: -72,
-              child: Image.asset(AppAssets.sebhaicon),
-            )
+            Image.asset(
+              Theme.of(context).colorScheme.brightness == Brightness.light
+                  ? AppAssets.sebha
+                  : AppAssets.bodySebhaDark,
+              width: sebhaRadius * 2,
+              height: sebhaRadius * 2,
+            ),
+            AnimatedBuilder(
+              animation: _animationController,
+              builder: (context, child) {
+                return Transform.translate(
+                  offset: Offset(
+                    dx * _animationController.value, 
+                    dy * _animationController.value, 
+                  ),
+                  child: Image.asset(
+                    Theme.of(context).colorScheme.brightness == Brightness.light
+                        ? AppAssets.headSebha
+                        : AppAssets.bodySebhaDarkLogo,
+                    width: 50,  
+                    height: 50,
+                  ),
+                );
+              },
+            ),
           ],
         ),
         const SizedBox(
@@ -39,7 +96,7 @@ class SebhaState extends State<Sebha> {
         ),
         Text(
           'عدد التسبيحات',
-          style: AppStyles.semiBoldAccent,
+          style: Theme.of(context).textTheme.titleMedium,
         ),
         const SizedBox(
           height: 5,
@@ -48,20 +105,10 @@ class SebhaState extends State<Sebha> {
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color.fromARGB(255, 230, 164, 33),
           ),
-          onPressed: () {
-            setState(() {
-              if (numberOfTasbeh < 33) {
-                numberOfTasbeh++;
-              } else {
-                numberOfTasbeh = 0;
-                currentTasbehIndex =
-                    (currentTasbehIndex + 1) % AppConstants.tasbehList.length;
-              }
-            });
-          },
+          onPressed: _incrementTasbeh,
           child: Text(
             numberOfTasbeh.toString(),
-            style: AppStyles.regulerAccent,
+            style: TextStyle(color: AppColors.accent),
           ),
         ),
         const SizedBox(
@@ -71,17 +118,20 @@ class SebhaState extends State<Sebha> {
           margin: const EdgeInsets.symmetric(horizontal: 40),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
-            color: AppColors.primary,
+            color: Theme.of(context).colorScheme.error,
           ),
           child: Center(
             child: Text(
               text,
               textAlign: TextAlign.center,
-              style: AppStyles.semiBoldAccentwhite,
+              style: Theme.of(context)
+                  .textTheme
+                  .titleLarge!
+                  .copyWith(color: Theme.of(context).colorScheme.onPrimary),
             ),
           ),
         ),
-       const  Spacer(),
+        const Spacer(),
       ],
     );
   }

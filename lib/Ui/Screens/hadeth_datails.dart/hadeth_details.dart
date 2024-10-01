@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:islamy_app/Ui/Screens/Tabs/hadeth.dart';
+import 'package:islamy_app/Ui/Screens/sura_details/sura_datails.dart';
 import 'package:islamy_app/Ui/Widgets/build_app_bar.dart';
-import 'package:islamy_app/Ui/utils/app_assets.dart';
-import 'package:islamy_app/Ui/utils/app_colors.dart';
-import 'package:islamy_app/Ui/utils/styles.dart';
+
 class HadethDetails extends StatefulWidget {
   const HadethDetails({super.key});
   static const String routeName = "hadeth";
@@ -19,21 +18,19 @@ class _HadethDetailsState extends State<HadethDetails> {
   @override
   Widget build(BuildContext context) {
     HadithModel hadithModel =
-          ModalRoute.of(context)!.settings.arguments as HadithModel;
-             readFileHadethContent(hadithModel.index);
+        ModalRoute.of(context)!.settings.arguments as HadithModel;
+    readFileHadethContent(hadithModel.index);
 
     return Container(
-      decoration: const BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage(AppAssets.defultBackground),
-              fit: BoxFit.cover)),
-      child: Scaffold(
-        appBar: buildAppBar(),
-        backgroundColor: AppColors.transparent,
-       body: Container(
+      decoration: BoxDecoration(
+        image: backgroudMethod(context),
+      ),
+      child: Scaffold(appBar: buildAppBar(context: context),
+        body: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
-            color: AppColors.white,
+                      color: Theme.of(context).colorScheme.onPrimary,
+        
           ),
           margin: const EdgeInsets.symmetric(vertical: 50, horizontal: 25),
           child: Expanded(
@@ -42,20 +39,19 @@ class _HadethDetailsState extends State<HadethDetails> {
                 Padding(
                   padding: const EdgeInsets.all(15),
                   child: Text(
-                    isError ? "حدث خطأ أثناء تحميل الحديث." : hadethContent,
-                    textDirection: TextDirection.rtl,
-                    textAlign: TextAlign.right,
-                    style: AppStyles.regulerAccent,
-                  ),
-                ),
+                      isError ? "حدث خطأ أثناء تحميل الحديث." : hadethContent,
+                      textDirection: TextDirection.rtl,
+                      textAlign: TextAlign.right,
+                      style: Theme.of(context).textTheme.titleSmall,
+                ),)
               ],
             ),
           ),
         ),
-        
       ),
     );
   }
+
   void readFileHadethContent(String filename) async {
     try {
       String content =

@@ -4,7 +4,6 @@ import 'package:islamy_app/Ui/Screens/sura_details/sura_datails.dart';
 import 'package:islamy_app/Ui/utils/app_assets.dart';
 import 'package:islamy_app/Ui/utils/app_colors.dart';
 import 'package:islamy_app/Ui/utils/app_constants.dart';
-import 'package:islamy_app/Ui/utils/styles.dart';
 
 class Quran extends StatelessWidget {
   const Quran({super.key});
@@ -17,40 +16,41 @@ class Quran extends StatelessWidget {
         const SizedBox(
           height: 3,
         ),
-        buildContent(),
+        buildContent(context),
       ],
     );
   }
 
-  Widget buildDevider() {
-    return const Divider(
+  Widget buildDevider(context) {
+    return  Divider(
       height: 2,
-      thickness: 2,
-      color: AppColors.primary,
+      
+            color:Theme.of(context).colorScheme.error,
     );
   }
 
-  Widget buildRowScreen() {
+  Widget buildRowScreen(context) {
     return Row(
       children: [
         Expanded(
           child: Text(
             'عدد الآيات ',
-            style: AppStyles.semiBoldAccent,
+                      style: Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: 28,fontWeight: FontWeight.bold),
+
             textAlign: TextAlign.center,
           ),
         ),
         Expanded(
             child: Text(
           ' اسم السورة',
-          style: AppStyles.semiBoldAccent,
+          style: Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: 28,fontWeight: FontWeight.bold),
           textAlign: TextAlign.center,
         )),
       ],
     );
   }
 
-  Widget buildContent() {
+  Widget buildContent(context) {
     return Expanded(
       flex: 6,
       child: Stack(
@@ -58,15 +58,14 @@ class Quran extends StatelessWidget {
         children: [
           Column(
             children: [
-              buildDevider(),
-              buildRowScreen(),
-              buildDevider(),
+              buildDevider(context),
+              buildRowScreen(context),
+              buildDevider(context),
               buildSures(),
             ],
           ),
-          const VerticalDivider(
-            thickness: 2,
-            color: AppColors.primary,
+          const  VerticalDivider(
+            color:AppColors.primaryLightMode,
           ),
         ],
       ),
@@ -79,7 +78,7 @@ class Quran extends StatelessWidget {
             itemCount: AppConstants.suraNames.length,
             separatorBuilder: (context, index) {
               return const Divider(
-                color: AppColors.primary,
+                color: AppColors.primaryLightMode,
               );
             },
             itemBuilder: (context, index) {  
@@ -98,13 +97,13 @@ class Quran extends StatelessWidget {
                         child: Text(
                       textAlign: TextAlign.center,
                       AppConstants.versesNumber[index].toString(),
-                      style: AppStyles.regulerAccent,
+          style: Theme.of(context).textTheme.titleMedium!,
                     )),
                     Expanded(
                         child: Text(
                       textAlign: TextAlign.center,
                       AppConstants.suraNames[index],
-                      style: AppStyles.regulerAccent,
+          style: Theme.of(context).textTheme.titleMedium!,
                     )),
                   ],
                 ),
