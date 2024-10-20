@@ -17,7 +17,6 @@ class Hadeth extends StatelessWidget {
         Text('الأحاديث', style: Theme.of(context).textTheme.titleMedium),
         const Divider(
           thickness: 3,
-
         ),
         Expanded(
             child: ListView.builder(

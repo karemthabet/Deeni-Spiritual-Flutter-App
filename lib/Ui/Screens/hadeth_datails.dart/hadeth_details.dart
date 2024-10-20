@@ -25,12 +25,12 @@ class _HadethDetailsState extends State<HadethDetails> {
       decoration: BoxDecoration(
         image: backgroudMethod(context),
       ),
-      child: Scaffold(appBar: buildAppBar(context: context),
+      child: Scaffold(
+        appBar: buildAppBar(context: context),
         body: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
-                      color: Theme.of(context).colorScheme.onPrimary,
-        
+            color: Theme.of(context).colorScheme.onPrimary,
           ),
           margin: const EdgeInsets.symmetric(vertical: 50, horizontal: 25),
           child: Expanded(
@@ -39,11 +39,12 @@ class _HadethDetailsState extends State<HadethDetails> {
                 Padding(
                   padding: const EdgeInsets.all(15),
                   child: Text(
-                      isError ? "حدث خطأ أثناء تحميل الحديث." : hadethContent,
-                      textDirection: TextDirection.rtl,
-                      textAlign: TextAlign.right,
-                      style: Theme.of(context).textTheme.titleSmall,
-                ),)
+                    isError ? "حدث خطأ أثناء تحميل الحديث." : hadethContent,
+                    textDirection: TextDirection.rtl,
+                    textAlign: TextAlign.right,
+                    style: Theme.of(context).textTheme.titleSmall,
+                  ),
+                )
               ],
             ),
           ),

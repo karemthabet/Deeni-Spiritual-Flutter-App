@@ -13,8 +13,7 @@ class ListenServices {
       );
 
       return sura;
-    } 
-    catch (e) {
+    } catch (e) {
       return Sura(suraUrl: '');
     }
   }

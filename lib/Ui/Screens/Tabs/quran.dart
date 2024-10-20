@@ -22,10 +22,9 @@ class Quran extends StatelessWidget {
   }
 
   Widget buildDevider(context) {
-    return  Divider(
+    return Divider(
       height: 2,
-      
-            color:Theme.of(context).colorScheme.error,
+      color: Theme.of(context).colorScheme.error,
     );
   }
 
@@ -35,15 +34,20 @@ class Quran extends StatelessWidget {
         Expanded(
           child: Text(
             'عدد الآيات ',
-                      style: Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: 28,fontWeight: FontWeight.bold),
-
+            style: Theme.of(context)
+                .textTheme
+                .titleMedium!
+                .copyWith(fontSize: 28, fontWeight: FontWeight.bold),
             textAlign: TextAlign.center,
           ),
         ),
         Expanded(
             child: Text(
           ' اسم السورة',
-          style: Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: 28,fontWeight: FontWeight.bold),
+          style: Theme.of(context)
+              .textTheme
+              .titleMedium!
+              .copyWith(fontSize: 28, fontWeight: FontWeight.bold),
           textAlign: TextAlign.center,
         )),
       ],
@@ -64,8 +68,8 @@ class Quran extends StatelessWidget {
               buildSures(),
             ],
           ),
-          const  VerticalDivider(
-            color:AppColors.primaryLightMode,
+          const VerticalDivider(
+            color: AppColors.primaryLightMode,
           ),
         ],
       ),
@@ -81,10 +85,10 @@ class Quran extends StatelessWidget {
                 color: AppColors.primaryLightMode,
               );
             },
-            itemBuilder: (context, index) {  
+            itemBuilder: (context, index) {
               return InkWell(
                 onTap: () {
-                  Navigator.pushNamed(context, SuraDetails.routeName, 
+                  Navigator.pushNamed(context, SuraDetails.routeName,
                       arguments: SuraDetailsModel(
                         numSura: index,
                         filename: "${index + 1}.txt",
@@ -97,13 +101,13 @@ class Quran extends StatelessWidget {
                         child: Text(
                       textAlign: TextAlign.center,
                       AppConstants.versesNumber[index].toString(),
-          style: Theme.of(context).textTheme.titleMedium!,
+                      style: Theme.of(context).textTheme.titleMedium!,
                     )),
                     Expanded(
                         child: Text(
                       textAlign: TextAlign.center,
                       AppConstants.suraNames[index],
-          style: Theme.of(context).textTheme.titleMedium!,
+                      style: Theme.of(context).textTheme.titleMedium!,
                     )),
                   ],
                 ),

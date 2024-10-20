@@ -19,22 +19,20 @@ class RadioTab extends StatelessWidget {
                 ),
                 Text(
                   snap.data!.name,
-                  style: const TextStyle(color:Colors.amberAccent,fontSize: 30),
+                  style:
+                      const TextStyle(color: Colors.amberAccent, fontSize: 30),
                 ),
                 Image.asset(AppAssets.radioImage),
-                Text(
-                  'إذاعة القرآن الكريم',
-                  style: Theme.of(context).textTheme.titleMedium
-                ),
+                Text('إذاعة القرآن الكريم',
+                    style: Theme.of(context).textTheme.titleMedium),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Expanded(
                       child: IconButton(
                         onPressed: () {},
-                        icon:  Icon(
-                              color: Theme.of(context).colorScheme.error,
-
+                        icon: Icon(
+                          color: Theme.of(context).colorScheme.error,
                           size: 40,
                           Icons.fast_rewind,
                         ),
@@ -44,10 +42,10 @@ class RadioTab extends StatelessWidget {
                     Expanded(
                       child: IconButton(
                         onPressed: () {},
-                        icon:  Icon(
+                        icon: Icon(
                           size: 40,
                           Icons.fast_forward,
-                              color: Theme.of(context).colorScheme.error,
+                          color: Theme.of(context).colorScheme.error,
                         ),
                       ),
                     ),
@@ -87,7 +85,7 @@ class _IconplayState extends State<Iconplay> {
 
   @override
   void dispose() {
-        player.stop();
+    player.stop();
 
     player.dispose();
     super.dispose();
@@ -111,7 +109,7 @@ class _IconplayState extends State<Iconplay> {
         icon: Icon(
           size: 80,
           isPlaying ? Icons.pause : Icons.play_arrow,
-                              color: Theme.of(context).colorScheme.error,
+          color: Theme.of(context).colorScheme.error,
         ),
       ),
     );

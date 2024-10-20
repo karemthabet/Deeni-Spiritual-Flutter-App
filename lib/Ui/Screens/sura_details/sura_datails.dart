@@ -37,97 +37,92 @@ class _SuraDetailsState extends State<SuraDetails> {
         ModalRoute.of(context)!.settings.arguments as SuraDetailsModel;
     readFileContent(suraDetailsContent.filename);
     return Container(
-      decoration:  BoxDecoration(
+      decoration: BoxDecoration(
         image: backgroudMethod(context),
-
       ),
-      child:  
-        Scaffold(appBar:buildAppBar(context: context),
-          body: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30),
-          color: Theme.of(context).colorScheme.onPrimary,
-            ),
-            margin: const EdgeInsets.symmetric(vertical: 50, horizontal: 25),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "سورة ${suraDetailsContent.suraName}",
-                     style:  Theme.of(context).textTheme.titleLarge!,
-          
-                      textAlign: TextAlign.center,
-                    ),
-                    IconButton(
-                     color:  Theme.of(context).textTheme.titleLarge!.color,
-                      onPressed: () async {
-                        if (!player.playing) {
-                          isLoad = true;
-                          setState(() {});
-                          Sura sura = await ListenServices()
-                              .getSura(suraNumber: suraDetailsContent.numSura);
-          
-                          if (sura.suraUrl == '') {
-                            showDialog(
-                                // ignore: use_build_context_synchronously
-                                context: context,
-                                builder: (context) {
-                                  return const AlertDialog(
-                                      title: Text('Check your internet'));
-                                });
-                            isLoad = false;
-                          } else {
-                            await player.setUrl(sura.suraUrl);
-          
-                            isLoad = false;
-                            setState(() {});
-                            player.play();
-                          }
+      child: Scaffold(
+        appBar: buildAppBar(context: context),
+        body: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(30),
+            color: Theme.of(context).colorScheme.onPrimary,
+          ),
+          margin: const EdgeInsets.symmetric(vertical: 50, horizontal: 25),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "سورة ${suraDetailsContent.suraName}",
+                    style: Theme.of(context).textTheme.titleLarge!,
+                    textAlign: TextAlign.center,
+                  ),
+                  IconButton(
+                    color: Theme.of(context).textTheme.titleLarge!.color,
+                    onPressed: () async {
+                      if (!player.playing) {
+                        isLoad = true;
+                        setState(() {});
+                        Sura sura = await ListenServices()
+                            .getSura(suraNumber: suraDetailsContent.numSura);
+
+                        if (sura.suraUrl == '') {
+                          showDialog(
+                              // ignore: use_build_context_synchronously
+                              context: context,
+                              builder: (context) {
+                                return const AlertDialog(
+                                    title: Text('Check your internet'));
+                              });
+                          isLoad = false;
                         } else {
-                          player.pause();
+                          await player.setUrl(sura.suraUrl);
+
+                          isLoad = false;
+                          setState(() {});
+                          player.play();
                         }
-                      },
-                      icon: isLoad
-                          ? const CircularProgressIndicator()
-                          : Icon(
-                              player.playing ? Icons.pause : Icons.play_circle,
-                              size: 35,
-                            ),
-                    ),
-                  ],
-                ),
-                const Divider(
-                  endIndent: 60,
-                  indent: 60,
-                  thickness: 1,
-                  color: AppColors.primaryLightMode,
-                ),
-                Expanded(
-                  child: ListView(children: [
-                    suraContent.isEmpty
-                        ? const Center(child: CircularProgressIndicator())
-                        : Padding(
+                      } else {
+                        player.pause();
+                      }
+                    },
+                    icon: isLoad
+                        ? const CircularProgressIndicator()
+                        : Icon(
+                            player.playing ? Icons.pause : Icons.play_circle,
+                            size: 35,
+                          ),
+                  ),
+                ],
+              ),
+              const Divider(
+                endIndent: 60,
+                indent: 60,
+                thickness: 1,
+                color: AppColors.primaryLightMode,
+              ),
+              Expanded(
+                child: ListView(children: [
+                  suraContent.isEmpty
+                      ? const Center(child: CircularProgressIndicator())
+                      : Padding(
                           padding: const EdgeInsets.all(15),
                           child: Text(
-                              textDirection: TextDirection.rtl,
-                              textAlign: TextAlign.right,
-                              formatSuraContent(suraContent),
-                              style: Theme.of(context).textTheme.titleSmall,
-                            ),
+                            textDirection: TextDirection.rtl,
+                            textAlign: TextAlign.right,
+                            formatSuraContent(suraContent),
+                            style: Theme.of(context).textTheme.titleSmall,
+                          ),
                         ),
-                  ]),
-                ),
-              ],
-            ),
+                ]),
+              ),
+            ],
           ),
         ),
-      
+      ),
     );
   }
-
-  
 
   void readFileContent(String filename) async {
     String content = await rootBundle.loadString("assets/files/$filename");
@@ -145,12 +140,13 @@ class _SuraDetailsState extends State<SuraDetails> {
     return formattedContent.trim();
   }
 }
- DecorationImage backgroudMethod(context) {
-    return DecorationImage(
-          image: AssetImage(
-              Theme.of(context).colorScheme.brightness == Brightness.light
-                  ? AppAssets.defultBackground
-                  : AppAssets.defultDarkBackground),
-          fit: BoxFit.cover,
-        );
-  }
+
+DecorationImage backgroudMethod(context) {
+  return DecorationImage(
+    image: AssetImage(
+        Theme.of(context).colorScheme.brightness == Brightness.light
+            ? AppAssets.defultBackground
+            : AppAssets.defultDarkBackground),
+    fit: BoxFit.cover,
+  );
+}

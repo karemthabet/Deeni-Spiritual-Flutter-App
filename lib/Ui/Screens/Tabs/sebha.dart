@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:islamy_app/Ui/utils/app_colors.dart';
 import 'package:islamy_app/Ui/utils/app_constants.dart';
 import '../../utils/app_assets.dart';
-import 'dart:math';   
+import 'dart:math';
 
 class Sebha extends StatefulWidget {
   const Sebha({super.key});
@@ -20,7 +20,7 @@ class SebhaState extends State<Sebha> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
     _animationController = AnimationController(
-      duration: const Duration(milliseconds: 500), 
+      duration: const Duration(milliseconds: 500),
       vsync: this,
     );
   }
@@ -40,14 +40,14 @@ class SebhaState extends State<Sebha> with SingleTickerProviderStateMixin {
         currentTasbehIndex =
             (currentTasbehIndex + 1) % AppConstants.tasbehList.length;
       }
-      _animationController.forward(from: 0);  
+      _animationController.forward(from: 0);
     });
   }
 
   @override
   Widget build(BuildContext context) {
     String text = AppConstants.tasbehList[currentTasbehIndex];
-    double sebhaRadius = 100; 
+    double sebhaRadius = 100;
 
     double anglePerStep = 2 * pi / 33;
 
@@ -76,14 +76,14 @@ class SebhaState extends State<Sebha> with SingleTickerProviderStateMixin {
               builder: (context, child) {
                 return Transform.translate(
                   offset: Offset(
-                    dx * _animationController.value, 
-                    dy * _animationController.value, 
+                    dx * _animationController.value,
+                    dy * _animationController.value,
                   ),
                   child: Image.asset(
                     Theme.of(context).colorScheme.brightness == Brightness.light
                         ? AppAssets.headSebha
                         : AppAssets.bodySebhaDarkLogo,
-                    width: 50,  
+                    width: 50,
                     height: 50,
                   ),
                 );
@@ -108,7 +108,7 @@ class SebhaState extends State<Sebha> with SingleTickerProviderStateMixin {
           onPressed: _incrementTasbeh,
           child: Text(
             numberOfTasbeh.toString(),
-            style: TextStyle(color: AppColors.accent),
+            style: const TextStyle(color: AppColors.accent),
           ),
         ),
         const SizedBox(

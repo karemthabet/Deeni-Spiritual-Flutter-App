@@ -13,19 +13,21 @@ class Splash extends StatelessWidget {
     });
 
     return Scaffold(
-      backgroundColor:Theme.of(context).colorScheme.onSurface,
+        backgroundColor: Theme.of(context).colorScheme.onSurface,
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Expanded(child: Image.asset(Theme.of(context).colorScheme.brightness == Brightness.light
-                  ? AppAssets.logo2
-                  : AppAssets.logo)),
+            Expanded(
+                child: Image.asset(
+                    Theme.of(context).colorScheme.brightness == Brightness.light
+                        ? AppAssets.logo2
+                        : AppAssets.logo)),
             Padding(
               padding: const EdgeInsets.only(bottom: 30),
               child: Text(
-                'Supervised by Kareem Thabet',style: TextStyle(fontSize: 18,
-                  color: Theme.of(context).colorScheme.error),
-                 
+                'Supervised by Kareem Thabet',
+                style: TextStyle(
+                    fontSize: 18, color: Theme.of(context).colorScheme.error),
               ),
             ),
           ],
