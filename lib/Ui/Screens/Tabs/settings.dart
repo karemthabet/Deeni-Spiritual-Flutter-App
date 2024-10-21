@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:islamy_app/Ui/utils/app_colors.dart';
 import 'package:islamy_app/Ui/utils/applocalization.dart';
+import 'package:islamy_app/providers/language_provider.dart';
+import 'package:islamy_app/providers/theme_provider.dart';
+import 'package:provider/provider.dart';
 
 class SettingsTab extends StatefulWidget {
   const SettingsTab({super.key});
@@ -10,10 +13,12 @@ class SettingsTab extends StatefulWidget {
 }
 
 class _SettingsTabState extends State<SettingsTab> {
-  String selectedValue = "ar";
-  bool isDark = false;
+ late LanguageProvider provider;
+ late ThemeProvider themeProvider;
   @override
   Widget build(BuildContext context) {
+   provider= Provider.of(context)!;
+   themeProvider=Provider.of(context)!;
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 100),
@@ -47,10 +52,10 @@ class _SettingsTabState extends State<SettingsTab> {
     );
   }
 
-  buildDropDown() {
+   buildDropDown() {
     return DropdownButton(
         isExpanded: true,
-        value: selectedValue,
+        value: provider.selectedLanguage,
         items: [
           DropdownMenuItem<String>(
             value: "ar",
@@ -68,18 +73,19 @@ class _SettingsTabState extends State<SettingsTab> {
           ),
         ],
         onChanged: (newvalue) {
-          selectedValue = newvalue!;
-          setState(() {});
+          provider.selectedLanguage = newvalue!; 
+          setState(() {}); 
         });
   }
+
 
   buildSwitchButton() {
     return Switch(
         activeColor: AppColors.primaryLightMode,
         inactiveThumbColor: AppColors.primaryLightMode,
-        value: isDark,
+        value:themeProvider.isDarkThemeEnabled,
         onChanged: (newvalue) {
-          isDark = newvalue;
+          themeProvider.thememode=newvalue?ThemeMode.dark:ThemeMode.light;
           setState(() {});
         });
   }

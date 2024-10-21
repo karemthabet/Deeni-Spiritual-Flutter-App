@@ -6,9 +6,17 @@ import 'package:islamy_app/Ui/Screens/hadeth_datails.dart/hadeth_details.dart';
 import 'package:islamy_app/Ui/Screens/sura_details/sura_datails.dart';
 import 'package:islamy_app/Ui/utils/app_theme.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:islamy_app/providers/language_provider.dart';
+import 'package:islamy_app/providers/theme_provider.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const IslamyApp());
+  runApp(ChangeNotifierProvider(
+    create: (context) => ThemeProvider(),
+    child: ChangeNotifierProvider(
+      create: (context) => LanguageProvider(),
+      child: const IslamyApp()),
+  ));
 }
 
 class IslamyApp extends StatelessWidget {
@@ -16,6 +24,8 @@ class IslamyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    LanguageProvider languageProvider=Provider.of(context)!;
+    ThemeProvider themeProvider=Provider.of(context)!;
     return MaterialApp(
       localizationsDelegates: const [
         AppLocalizations.delegate,
@@ -27,10 +37,10 @@ class IslamyApp extends StatelessWidget {
         Locale('en'),
         Locale('ar'),
       ],
-      locale: const Locale('en'),
+      locale:  Locale(languageProvider.selectedLanguage),
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-      themeMode: ThemeMode.system,
+      themeMode:themeProvider.thememode,
       debugShowCheckedModeBanner: false,
       routes: {
         Splash.routeName: (context) => const Splash(),
