@@ -75,19 +75,20 @@ class Iconplay extends StatefulWidget {
 }
 
 class _IconplayState extends State<Iconplay> {
-  AudioPlayer player = AudioPlayer();
+  static final AudioPlayer player = AudioPlayer(); // Singleton Instance
   bool isPlaying = false;
+
   @override
   void initState() {
-    player.setUrl(widget.url);
     super.initState();
+    if (!isPlaying) {
+      player.setUrl(widget.url);
+    }
   }
 
   @override
   void dispose() {
-    player.stop();
-
-    player.dispose();
+    // لا توقف اللاعب عند التنقل بين الصفحات
     super.dispose();
   }
 
@@ -101,7 +102,6 @@ class _IconplayState extends State<Iconplay> {
             isPlaying = false;
           } else {
             player.play();
-
             isPlaying = true;
           }
           setState(() {});

@@ -15,6 +15,7 @@ class HadethDetails extends StatefulWidget {
 class _HadethDetailsState extends State<HadethDetails> {
   String hadethContent = "جاري تحميل الحديث...";
   bool isError = false;
+
   @override
   Widget build(BuildContext context) {
     HadithModel hadithModel =
@@ -33,20 +34,18 @@ class _HadethDetailsState extends State<HadethDetails> {
             color: Theme.of(context).colorScheme.onPrimary,
           ),
           margin: const EdgeInsets.symmetric(vertical: 50, horizontal: 25),
-          child: Expanded(
-            child: ListView(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(15),
-                  child: Text(
-                    isError ? "حدث خطأ أثناء تحميل الحديث." : hadethContent,
-                    textDirection: TextDirection.rtl,
-                    textAlign: TextAlign.right,
-                    style: Theme.of(context).textTheme.titleSmall,
-                  ),
-                )
-              ],
-            ),
+          child: ListView(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(15),
+                child: Text(
+                  isError ? "حدث خطأ أثناء تحميل الحديث." : hadethContent,
+                  textDirection: TextDirection.rtl,
+                  textAlign: TextAlign.right,
+                  style: Theme.of(context).textTheme.titleSmall,
+                ),
+              ),
+            ],
           ),
         ),
       ),

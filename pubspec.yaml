@@ -41,6 +41,14 @@ dependencies:
     sdk: flutter
   intl: any
   provider: ^6.1.2
+  icons_launcher: ^3.0.0
+icons_launcher:
+  image_path: "assets/islamy.png"
+  platforms:
+    android:
+      enable: true
+    ios:
+      enable: true
 
 dev_dependencies:
   flutter_test:
