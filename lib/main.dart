@@ -37,8 +37,6 @@ class IslamyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    LanguageProvider languageProvider=Provider.of(context)!;
-    ThemeProvider themeProvider=Provider.of(context)!;
     return MaterialApp(
       localizationsDelegates: const [
         AppLocalizations.delegate,
@@ -50,10 +48,10 @@ class IslamyApp extends StatelessWidget {
         Locale('en'),
         Locale('ar'),
       ],
-      locale:  Locale(languageProvider.selectedLanguage),
+      locale:  Locale(Provider.of<LanguageProvider>(context).selectedLanguage),
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-      themeMode:themeProvider.appTheme,
+      themeMode:Provider.of<ThemeProvider>(context).myAppTheme,
       debugShowCheckedModeBanner: false,
       routes: {
         Splash.routeName: (context) => const Splash(),

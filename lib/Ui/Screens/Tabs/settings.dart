@@ -72,7 +72,7 @@ class _SettingsTabState extends State<SettingsTab> {
           ],
           onChanged: (newValue) {
             if (newValue != null) {
-              context.read<LanguageProvider>().setSelectedLanguage(newValue);
+              Provider.of<LanguageProvider>(context,listen: false).setSelectedLanguage(newValue);
             }
           },
         );
@@ -89,7 +89,7 @@ class _SettingsTabState extends State<SettingsTab> {
         inactiveThumbColor: AppColors.primaryLightMode,
         value: myAppTheme == ThemeMode.dark, 
         onChanged: (newValue) {
-          context.read<ThemeProvider>().setAppTheme(newValue ? ThemeMode.dark : ThemeMode.light);
+          Provider.of<ThemeProvider>(context,listen: false).setAppTheme(newValue ? ThemeMode.dark : ThemeMode.light);
         },
       );
     },
