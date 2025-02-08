@@ -13,11 +13,10 @@ class SettingsTab extends StatefulWidget {
 }
 
 class _SettingsTabState extends State<SettingsTab> {
-  late ThemeProvider themeProvider;
+
 
   @override
   Widget build(BuildContext context) {
-    themeProvider = context.watch<ThemeProvider>();
 
     return Scaffold(
       body: Padding(
@@ -49,42 +48,51 @@ class _SettingsTabState extends State<SettingsTab> {
   }
 
   Widget buildDropDown() {
-    return DropdownButton<String>(
-      isExpanded: true,
-      value: context.watch<LanguageProvider>().selectedLanguage,
-      items: [
-        DropdownMenuItem<String>(
-          value: "ar",
-          child: Text(
-            "العربية",
-            style: Theme.of(context).textTheme.titleSmall,
-          ),
-        ),
-        DropdownMenuItem<String>(
-          value: "en",
-          child: Text(
-            "English",
-            style: Theme.of(context).textTheme.titleSmall,
-          ),
-        ),
-      ],
-      onChanged: (newvalue) {
-        if (newvalue != null) {
-          context.read<LanguageProvider>().setSelectedLanguage(newvalue); 
-        }
+    return Selector<LanguageProvider, String>(
+      selector: (context, languageProvider) => languageProvider.selectedLanguage,
+      builder: (context, selectedLanguage, child) {
+        return DropdownButton<String>(
+          isExpanded: true,
+          value: selectedLanguage,
+          items: [
+            DropdownMenuItem<String>(
+              value: "ar",
+              child: Text(
+                "العربية",
+                style: Theme.of(context).textTheme.titleSmall,
+              ),
+            ),
+            DropdownMenuItem<String>(
+              value: "en",
+              child: Text(
+                "English",
+                style: Theme.of(context).textTheme.titleSmall,
+              ),
+            ),
+          ],
+          onChanged: (newValue) {
+            if (newValue != null) {
+              context.read<LanguageProvider>().setSelectedLanguage(newValue);
+            }
+          },
+        );
       },
     );
   }
 
-Widget buildSwitchButton() {
-  return Switch(
-    activeColor: AppColors.primaryLightMode,
-    inactiveThumbColor: AppColors.primaryLightMode,
-    value: themeProvider.myAppTheme == ThemeMode.dark,
-    onChanged: (newvalue) {
-      themeProvider.setAppTheme(newvalue ? ThemeMode.dark : ThemeMode.light);
+  Widget buildSwitchButton() {
+  return Selector<ThemeProvider, ThemeMode>(
+    selector: (context, themeProvider) => themeProvider.myAppTheme,
+    builder: (context, myAppTheme, child) {
+      return Switch(
+        activeColor: AppColors.primaryLightMode,
+        inactiveThumbColor: AppColors.primaryLightMode,
+        value: myAppTheme == ThemeMode.dark, 
+        onChanged: (newValue) {
+          context.read<ThemeProvider>().setAppTheme(newValue ? ThemeMode.dark : ThemeMode.light);
+        },
+      );
     },
   );
 }
-
 }

@@ -8,7 +8,7 @@ class ThemeProvider extends ChangeNotifier {
 
   ThemeMode get myAppTheme => appTheme;
 
-  Future<void> setAppTheme(ThemeMode newAppTheme) async {
+   Future<void> setAppTheme(ThemeMode newAppTheme) async {
     if (appTheme != newAppTheme) {
       appTheme = newAppTheme;
       await CashData.setData(key: "theme", value: appTheme == ThemeMode.dark ? "dark" : "light");
