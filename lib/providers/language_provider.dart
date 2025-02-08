@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:islamy_app/cashe/cash_data.dart';
 
 class LanguageProvider extends ChangeNotifier {
-  String _selectedLanguage = "en";
+  String _selectedLanguage;
+
+  LanguageProvider({required String initialLanguage}) : _selectedLanguage = initialLanguage;
 
   String get selectedLanguage => _selectedLanguage;
 
-  set selectedLanguage(String language) {
-    _selectedLanguage = language;
-    notifyListeners();
+  Future<void> setSelectedLanguage(String language) async {
+    if (_selectedLanguage != language) {
+      _selectedLanguage = language;
+      await CashData.setData(key: "lang", value: language);
+      notifyListeners();
+    }
   }
 }

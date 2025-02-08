@@ -13,12 +13,12 @@ class SettingsTab extends StatefulWidget {
 }
 
 class _SettingsTabState extends State<SettingsTab> {
- late LanguageProvider provider;
- late ThemeProvider themeProvider;
+  late ThemeProvider themeProvider;
+
   @override
   Widget build(BuildContext context) {
-   provider= Provider.of(context)!;
-   themeProvider=Provider.of(context)!;
+    themeProvider = context.watch<ThemeProvider>();
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 100),
@@ -26,67 +26,65 @@ class _SettingsTabState extends State<SettingsTab> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
-               appLocalizations(context).languageKey,
+              appLocalizations(context).languageKey,
               style: Theme.of(context).textTheme.titleMedium,
             ),
-            const SizedBox(
-              height: 30,
-            ),
+            const SizedBox(height: 30),
             buildDropDown(),
-            const SizedBox(
-              height: 70,
-            ),
+            const SizedBox(height: 70),
             Row(
               children: [
                 Text(
-                 appLocalizations(context).themeKey,
+                  appLocalizations(context).themeKey,
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 const Spacer(),
                 buildSwitchButton(),
               ],
-            )
+            ),
           ],
         ),
       ),
     );
   }
 
-   buildDropDown() {
-    return DropdownButton(
-        isExpanded: true,
-        value: provider.selectedLanguage,
-        items: [
-          DropdownMenuItem<String>(
-            value: "ar",
-            child: Text(
-              "العربية",
-              style: Theme.of(context).textTheme.titleSmall,
-            ),
+  Widget buildDropDown() {
+    return DropdownButton<String>(
+      isExpanded: true,
+      value: context.watch<LanguageProvider>().selectedLanguage,
+      items: [
+        DropdownMenuItem<String>(
+          value: "ar",
+          child: Text(
+            "العربية",
+            style: Theme.of(context).textTheme.titleSmall,
           ),
-          DropdownMenuItem<String>(
-            value: "en",
-            child: Text(
-              "English",
-              style: Theme.of(context).textTheme.titleSmall,
-            ),
+        ),
+        DropdownMenuItem<String>(
+          value: "en",
+          child: Text(
+            "English",
+            style: Theme.of(context).textTheme.titleSmall,
           ),
-        ],
-        onChanged: (newvalue) {
-          provider.selectedLanguage = newvalue!; 
-          setState(() {}); 
-        });
+        ),
+      ],
+      onChanged: (newvalue) {
+        if (newvalue != null) {
+          context.read<LanguageProvider>().setSelectedLanguage(newvalue); 
+        }
+      },
+    );
   }
 
+Widget buildSwitchButton() {
+  return Switch(
+    activeColor: AppColors.primaryLightMode,
+    inactiveThumbColor: AppColors.primaryLightMode,
+    value: themeProvider.myAppTheme == ThemeMode.dark,
+    onChanged: (newvalue) {
+      themeProvider.setAppTheme(newvalue ? ThemeMode.dark : ThemeMode.light);
+    },
+  );
+}
 
-  buildSwitchButton() {
-    return Switch(
-        activeColor: AppColors.primaryLightMode,
-        inactiveThumbColor: AppColors.primaryLightMode,
-        value:themeProvider.isDarkThemeEnabled,
-        onChanged: (newvalue) {
-          themeProvider.thememode=newvalue?ThemeMode.dark:ThemeMode.light;
-          setState(() {});
-        });
-  }
 }

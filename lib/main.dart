@@ -6,18 +6,31 @@ import 'package:islamy_app/Ui/Screens/hadeth_datails.dart/hadeth_details.dart';
 import 'package:islamy_app/Ui/Screens/sura_details/sura_datails.dart';
 import 'package:islamy_app/Ui/utils/app_theme.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:islamy_app/cashe/cash_data.dart';
 import 'package:islamy_app/providers/language_provider.dart';
 import 'package:islamy_app/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 
-void main() {
-  runApp(ChangeNotifierProvider(
-    create: (context) => ThemeProvider(),
-    child: ChangeNotifierProvider(
-      create: (context) => LanguageProvider(),
-      child: const IslamyApp()),
-  ));
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await CashData.cacheInitialization(); 
+
+  String savedLanguage = CashData.getData(key: "lang") ?? "en";
+  String savedTheme = CashData.getData(key: "theme") ?? "light";
+  ThemeMode savedAppTheme = savedTheme == "dark" ? ThemeMode.dark : ThemeMode.light;
+
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => ThemeProvider(initialAppTheme: savedAppTheme)),
+        ChangeNotifierProvider(create: (context) => LanguageProvider(initialLanguage: savedLanguage)),
+      ],
+      child: const IslamyApp(),
+    ),
+  );
 }
+
+
 
 class IslamyApp extends StatelessWidget {
   const IslamyApp({super.key});
@@ -40,7 +53,7 @@ class IslamyApp extends StatelessWidget {
       locale:  Locale(languageProvider.selectedLanguage),
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-      themeMode:themeProvider.thememode,
+      themeMode:themeProvider.appTheme,
       debugShowCheckedModeBanner: false,
       routes: {
         Splash.routeName: (context) => const Splash(),
