@@ -73,7 +73,12 @@ class _SuraDetailsState extends State<SuraDetails> {
                               context: context,
                               builder: (context) {
                                 return const AlertDialog(
-                                    title: Text('Check your internet'));
+                                  title: Text(
+                                    "Check your internet connection",
+                                    style: TextStyle(
+                                        color: AppColors.primaryLightMode),
+                                  ),
+                                );
                               });
                           isLoad = false;
                         } else {

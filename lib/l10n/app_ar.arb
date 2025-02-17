@@ -6,5 +6,6 @@
     "radioKey": "الراديو",
     "quranKey": "القرآن",
     "sebhaKey": "التسبيح",
-    "hadethKey": "الأحاديث"
+    "hadethKey": "الأحاديث",
+    "checknet": "تحقق من الاتصال بالانترنت"
   }

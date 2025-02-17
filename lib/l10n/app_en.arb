@@ -6,5 +6,7 @@
     "radioKey": "Radio",
     "quranKey": "Quran",
     "sebhaKey": "Tasbeh",
-    "hadethKey": "Ahadeth"
+    "hadethKey": "Ahadeth",
+    "checknet":"Check your internet connection"
+
   }
