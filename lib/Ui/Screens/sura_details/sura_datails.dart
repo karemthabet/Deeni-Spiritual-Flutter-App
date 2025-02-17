@@ -88,7 +88,13 @@ class _SuraDetailsState extends State<SuraDetails> {
                       }
                     },
                     icon: isLoad
-                        ? const CircularProgressIndicator()
+                        ? Theme.of(context).brightness == Brightness.light
+                            ? const CircularProgressIndicator(
+                                color: AppColors.primaryLightMode,
+                              )
+                            : const CircularProgressIndicator(
+                                color: AppColors.goldDarkMode,
+                              )
                         : Icon(
                             player.playing ? Icons.pause : Icons.play_circle,
                             size: 35,
@@ -103,19 +109,21 @@ class _SuraDetailsState extends State<SuraDetails> {
                 color: AppColors.primaryLightMode,
               ),
               Expanded(
-                child: ListView(children: [
-                  suraContent.isEmpty
-                      ? const Center(child: CircularProgressIndicator())
-                      : Padding(
-                          padding: const EdgeInsets.all(15),
-                          child: Text(
-                            textDirection: TextDirection.rtl,
-                            textAlign: TextAlign.right,
-                            formatSuraContent(suraContent),
-                            style: Theme.of(context).textTheme.titleSmall,
-                          ),
-                        ),
-                ]),
+                child: Directionality(
+                  textDirection: TextDirection.rtl,
+                  child: ListView(
+                    children: [
+                      suraContent.isEmpty
+                          ? const Center(child: CircularProgressIndicator())
+                          : Padding(
+                              padding: const EdgeInsets.all(15),
+                              child: Column(
+                                children: _buildSuraContent(suraContent),
+                              ),
+                            ),
+                    ],
+                  ),
+                ),
               ),
             ],
           ),
@@ -124,20 +132,64 @@ class _SuraDetailsState extends State<SuraDetails> {
     );
   }
 
+  List<Widget> _buildSuraContent(String suraContent) {
+    List<String> verses = suraContent.split("\n");
+    return verses.map((verse) {
+      int verseIndex = verses.indexOf(verse) + 1;
+      return Padding(
+        padding: const EdgeInsets.only(bottom: 12.0),
+        child: Container(
+          width: double.infinity,
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.brightness == Brightness.light
+                ? Theme.of(context).colorScheme.secondary.withOpacity(0.1)
+                : Theme.of(context).colorScheme.onSecondary.withOpacity(0.2),
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(
+              color: Theme.of(context).colorScheme.secondary,
+              width: 1.5,
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                blurRadius: 4.0,
+                offset: const Offset(0, 2),
+              ),
+            ],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "الآية $verseIndex",
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+              ),
+              const SizedBox(height: 5),
+              Text(
+                verse,
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Theme.of(context).colorScheme.onSurface,
+                ),
+                textAlign: TextAlign.right,
+              ),
+            ],
+          ),
+        ),
+      );
+    }).toList();
+  }
+
   void readFileContent(String filename) async {
     String content = await rootBundle.loadString("assets/files/$filename");
     setState(() {
       suraContent = content;
     });
-  }
-
-  String formatSuraContent(String suraContent) {
-    List<String> verses = suraContent.split("\n");
-    String formattedContent = "";
-    for (int i = 0; i < verses.length; i++) {
-      formattedContent += "${verses[i]}(${i + 1})";
-    }
-    return formattedContent.trim();
   }
 }
 

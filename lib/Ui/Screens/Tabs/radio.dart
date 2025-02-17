@@ -37,7 +37,7 @@ class RadioTab extends StatelessWidget {
           } else if (snap.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           } else {
-            return const Center(child: Text("تأكد من اتصالك بالانترنت"));
+            return const Center(child: Text("تأكد من اتصالك بالانترنت",style:TextStyle(color: Colors.red,fontSize: 30,fontWeight: FontWeight.bold) ,));
           }
         });
   }
