@@ -28,27 +28,7 @@ class RadioTab extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Expanded(
-                      child: IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          color: Theme.of(context).colorScheme.error,
-                          size: 40,
-                          Icons.fast_rewind,
-                        ),
-                      ),
-                    ),
                     Iconplay(url: snap.data!.url),
-                    Expanded(
-                      child: IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          size: 40,
-                          Icons.fast_forward,
-                          color: Theme.of(context).colorScheme.error,
-                        ),
-                      ),
-                    ),
                   ],
                 ),
                 const Spacer(),
@@ -88,14 +68,18 @@ class _IconplayState extends State<Iconplay> {
 
   @override
   void dispose() {
-    // لا توقف اللاعب عند التنقل بين الصفحات
+    if (isPlaying) {
+      player.stop();
+    }
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 300),
       child: IconButton(
+        key: ValueKey<bool>(isPlaying),
         onPressed: () {
           if (isPlaying) {
             player.stop();
@@ -107,9 +91,10 @@ class _IconplayState extends State<Iconplay> {
           setState(() {});
         },
         icon: Icon(
+
           size: 80,
-          isPlaying ? Icons.pause : Icons.play_arrow,
-          color: Theme.of(context).colorScheme.error,
+          isPlaying ? Icons.pause_circle_filled : Icons.play_circle_filled,
+          color: Colors.amberAccent,
         ),
       ),
     );
