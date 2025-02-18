@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:islamy_app/Ui/Screens/sura_details/radio_services.dart';
 import 'package:islamy_app/Ui/utils/app_assets.dart';
 import 'package:islamy_app/Ui/utils/app_colors.dart';
+import 'package:islamy_app/Ui/Models/radio_model.dart';
+import 'package:islamy_app/core/helper/api_services.dart';
 import 'package:just_audio/just_audio.dart';
 
 class RadioTab extends StatefulWidget {
@@ -11,31 +14,30 @@ class RadioTab extends StatefulWidget {
 }
 
 class _RadioTabState extends State<RadioTab> {
-  String? radioName;
-  String? radioUrl;
+  RadioModel? radioModel;
   bool isLoading = true;
   bool hasError = false;
+  late AudioPlayer player;
 
   @override
   void initState() {
     super.initState();
+    player = AudioPlayer();
     loadRadioData();
+  }
+
+  @override
+  void dispose() {
+    player.stop(); // Stop audio when leaving the tab
+    player.dispose();
+    super.dispose();
   }
 
   Future<void> loadRadioData() async {
     try {
-      final radioData = await Future.delayed(const Duration(seconds: 2), () {
-        return {
-          "name": "إذاعة القرآن الكريم",
-          "url": "https://example.com/stream.mp3"
-        };
-      });
-
-      if (!mounted) return; // تجنب تحديث الواجهة إذا تم إغلاق الصفحة
-
+      radioModel = await RadioServices().getRadio();
+      if (!mounted) return;
       setState(() {
-        radioName = radioData["name"];
-        radioUrl = radioData["url"];
         isLoading = false;
       });
     } catch (e) {
@@ -53,21 +55,14 @@ class _RadioTabState extends State<RadioTab> {
       children: [
         const SizedBox(height: 70),
         Text(
-          radioName ?? "إذاعة القرآن الكريم",
+          radioModel?.name ?? "إذاعة القرآن الكريم",
           style: const TextStyle(color: Colors.amberAccent, fontSize: 30),
         ),
         Image.asset(AppAssets.radioImage),
         Text(
-          'إذاعة القرآن الكريم',
+          'إذاعة مشاري العفاسي',
           style: Theme.of(context).textTheme.titleMedium,
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Iconplay(url: radioUrl),
-          ],
-        ),
-        const Spacer(),
         if (isLoading) const CircularProgressIndicator(),
         if (hasError)
           const Padding(
@@ -77,28 +72,35 @@ class _RadioTabState extends State<RadioTab> {
               style: TextStyle(color: AppColors.primaryLightMode),
             ),
           ),
+        if (!isLoading && !hasError && radioModel?.url != null)
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Iconplay(url: radioModel!.url, player: player),
+            ],
+          ),
+        const Spacer(),
       ],
     );
   }
 }
 
 class Iconplay extends StatefulWidget {
-  const Iconplay({this.url, super.key});
+  const Iconplay({this.url, this.player, super.key});
   final String? url;
+  final AudioPlayer? player;
 
   @override
   State<Iconplay> createState() => _IconplayState();
 }
 
 class _IconplayState extends State<Iconplay> {
-  final AudioPlayer player = AudioPlayer();
   bool isPlaying = false;
-  bool isLoading = false;
 
   @override
   void initState() {
     super.initState();
-    player.playerStateStream.listen((state) {
+    widget.player?.playerStateStream.listen((state) {
       if (mounted) {
         setState(() {
           isPlaying = state.playing;
@@ -107,13 +109,7 @@ class _IconplayState extends State<Iconplay> {
     });
   }
 
-  @override
-  void dispose() {
-    player.dispose();
-    super.dispose();
-  }
-
-  void handlePlayPause() async {
+  Future<void> handlePlayPause() async {
     if (widget.url == null || widget.url!.isEmpty) {
       showDialog(
         context: context,
@@ -128,15 +124,11 @@ class _IconplayState extends State<Iconplay> {
     }
 
     try {
-      setState(() {
-        isLoading = true;
-      });
-
       if (isPlaying) {
-        await player.stop();
+        await widget.player?.stop();
       } else {
-        await player.setUrl(widget.url!);
-        await player.play();
+        await widget.player?.setUrl(widget.url!);
+        await widget.player?.play();
       }
     } catch (e) {
       showDialog(
@@ -149,26 +141,18 @@ class _IconplayState extends State<Iconplay> {
           content: Text(e.toString()),
         ),
       );
-    } finally {
-      if (mounted) {
-        setState(() {
-          isLoading = false;
-        });
-      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      onPressed: isLoading ? null : handlePlayPause,
-      icon: isLoading
-          ? const CircularProgressIndicator()
-          : Icon(
-              isPlaying ? Icons.pause_circle_filled : Icons.play_circle_filled,
-              size: 80,
-              color: Colors.amberAccent,
-            ),
+      onPressed: handlePlayPause,
+      icon: Icon(
+        isPlaying ? Icons.pause_circle_filled : Icons.play_circle_filled,
+        size: 80,
+        color: Colors.amberAccent,
+      ),
     );
   }
 }
