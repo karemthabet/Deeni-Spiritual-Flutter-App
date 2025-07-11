@@ -1,23 +1,22 @@
+# 🌙 Deeni – Spiritual Flutter App
 
-# 🌙 Deeni – Islamic Flutter App
-
-**Deeni** is a beautifully designed Islamic app developed with **Flutter**, aiming to support Muslims in their daily spiritual practices. Whether you're reading the Quran, listening to the radio, or remembering Allah through Dhikr — **Deeni** is here to strengthen your connection with your faith.
+**Deeni** is a beautifully crafted app developed with **Flutter**, designed to support your daily spiritual journey. Whether you're reading sacred texts, listening to peaceful recitations, or engaging in remembrance — **Deeni** helps you stay connected to your values and inner peace.
 
 ---
 
 ## 📱 Features
 
-- 📖 **The Holy Quran**  
+- 📖 **Quran Reader**  
   Read the Quran with a clean, user-friendly interface.
 
-- 🕌 **Dhikr (Remembrance of Allah)**  
-  Includes daily morning & evening Azkar and general supplications.
+- 🕌 **Daily Remembrance (Dhikr)**  
+  Includes morning & evening Azkar and uplifting supplications.
 
-- 📻 **Quran Radio**  
-  Stream Quran recitations 24/7 directly from the app.
+- 📻 **Spiritual Radio**  
+  Stream recitations and reflections 24/7 directly from the app.
 
-- 📜 **Hadith Collection**  
-  Browse and read authentic Hadiths from trusted sources.
+- 📜 **Wisdom & Hadith**  
+  Browse and read authentic narrations and spiritual insights.
 
 - 🌓 **Dark Mode**  
   Relax your eyes with a beautifully styled dark mode.
@@ -26,8 +25,8 @@
 
 ## 💡 Why “Deeni”?
 
-> *Deeni* (ديني) means "**my religion**" in Arabic — a personal and heartfelt expression of one’s commitment to Islam.  
-> This app was created to help you practice your **Deen** with ease and peace of mind, using technology to stay spiritually connected.
+> *Deeni* (ديني) means "**my religion**" in Arabic — a personal and heartfelt expression of one’s spiritual path.  
+> This app was created to help you live your **Deen** with ease and comfort, using technology to stay mindful and spiritually connected.
 
 ---
 
@@ -47,7 +46,3 @@ git clone https://github.com/karemthabet/Deeni_App.git
 cd Deeni_App
 flutter pub get
 flutter run
-````
-
-````
-
