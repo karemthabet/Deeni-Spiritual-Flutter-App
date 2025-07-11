@@ -1,6 +1,7 @@
-# 🌙 Sakina – Islamic Flutter App
 
-**Sakina** is a beautifully designed Islamic app developed with **Flutter**, aiming to bring peace and spirituality into the lives of Muslims around the world. Whether you're reading the Quran, listening to the radio, or remembering Allah through Dhikr — **Sakina** is here to support your journey.
+# 🌙 Deeni – Islamic Flutter App
+
+**Deeni** is a beautifully designed Islamic app developed with **Flutter**, aiming to support Muslims in their daily spiritual practices. Whether you're reading the Quran, listening to the radio, or remembering Allah through Dhikr — **Deeni** is here to strengthen your connection with your faith.
 
 ---
 
@@ -23,10 +24,10 @@
 
 ---
 
-## 💡 Why “Sakina”?
+## 💡 Why “Deeni”?
 
-> *Sakina* (سَكينة) means **serenity and peace** — a divine tranquility that fills the hearts of believers.  
-> This app was built to reflect that peaceful experience while using technology for spiritual growth.
+> *Deeni* (ديني) means "**my religion**" in Arabic — a personal and heartfelt expression of one’s commitment to Islam.  
+> This app was created to help you practice your **Deen** with ease and peace of mind, using technology to stay spiritually connected.
 
 ---
 
@@ -34,16 +35,19 @@
 
 - **Flutter**  
 - **Dart**  
-- **API** 
-- **State Management** 
-
+- **API**  
+- **State Management**  
 
 ---
 
 ## 🚀 Getting Started
 
 ```bash
-git clone https://github.com/karemthabet/Sakina_App.git
-cd Sakina_App
+git clone https://github.com/karemthabet/Deeni_App.git
+cd Deeni_App
 flutter pub get
 flutter run
+````
+
+````
+
