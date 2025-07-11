@@ -1,16 +1,49 @@
-# islamy_app
+# 🌙 Sakina – Islamic Flutter App
 
-A new Flutter project.
+**Sakina** is a beautifully designed Islamic app developed with **Flutter**, aiming to bring peace and spirituality into the lives of Muslims around the world. Whether you're reading the Quran, listening to the radio, or remembering Allah through Dhikr — **Sakina** is here to support your journey.
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## 📱 Features
 
-A few resources to get you started if this is your first Flutter project:
+- 📖 **The Holy Quran**  
+  Read the Quran with a clean, user-friendly interface.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- 🕌 **Dhikr (Remembrance of Allah)**  
+  Includes daily morning & evening Azkar and general supplications.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- 📻 **Quran Radio**  
+  Stream Quran recitations 24/7 directly from the app.
+
+- 📜 **Hadith Collection**  
+  Browse and read authentic Hadiths from trusted sources.
+
+- 🌓 **Dark Mode**  
+  Relax your eyes with a beautifully styled dark mode.
+
+---
+
+## 💡 Why “Sakina”?
+
+> *Sakina* (سَكينة) means **serenity and peace** — a divine tranquility that fills the hearts of believers.  
+> This app was built to reflect that peaceful experience while using technology for spiritual growth.
+
+---
+
+## 🛠️ Tech Stack
+
+- **Flutter**  
+- **Dart**  
+- **API** 
+- **State Management** 
+
+
+---
+
+## 🚀 Getting Started
+
+```bash
+git clone https://github.com/karemthabet/Sakina_App.git
+cd Sakina_App
+flutter pub get
+flutter run
