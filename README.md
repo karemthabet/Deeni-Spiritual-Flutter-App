@@ -4,6 +4,14 @@
 
 ---
 
+## 📹 Demo
+
+<div align="center">
+  <video src="https://github.com/user-attachments/assets/2d5fef9e-ed35-441f-84a6-88e22a50439b" controls width="480" style="border-radius: 12px;"></video>
+</div>
+
+---
+
 ## 📱 Features
 
 - 📖 **Quran Reader**  
